@@ -5,10 +5,10 @@ services:
     command:
       - "--pyx.server.port=8080"
     volumes:
-      - /mnt/f/Docker/Xyzzy/pyx.properties:/opt/pyx.properties:ro
-      - /mnt/f/Docker/Xyzzy/log4j.properties:/opt/log4j.properties:ro
-      - /mnt/f/Docker/Xyzzy/hibernate.cfg.xml:/opt/hibernate.cfg.xml:ro
-      - /mnt/f/Docker/Xyzzy/pyx.sqlite:/opt/pyx.sqlite:ro
+      - ./pyx.properties:/opt/pyx.properties:ro
+      - ./log4j.properties:/opt/log4j.properties:ro
+      - ./hibernate.cfg.xml:/opt/hibernate.cfg.xml:ro
+      - ./pyx.sqlite:/opt/pyx.sqlite:ro
     ports:
       - 8080:8080
     networks:
@@ -23,8 +23,8 @@ services:
   postgres:
     image: "postgres:alpine"
     volumes:
-      - /mnt/f/Docker/Xyzzy/data/pgdata:/var/lib/postgresql/data
-      - /mnt/f/Docker/Xyzzy/init-db.d:/docker-entrypoint-initdb.d
+      - ./data/pgdata:/var/lib/postgresql/data
+      - ./init-db.d:/docker-entrypoint-initdb.d
     networks:
       - pyx-net
     environment:
