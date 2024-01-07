@@ -5,14 +5,14 @@ services:
     command:
       - "--pyx.server.port=8080"
     volumes:
-      - /mnt/f/Docker/Xyzzy/pyx.properties:/opt/pyx.properties:ro
-      - /mnt/f/Docker/Xyzzy/log4j.properties:/opt/log4j.properties:ro
-      - /mnt/f/Docker/Xyzzy/hibernate.cfg.xml:/opt/hibernate.cfg.xml:ro
-      - /mnt/f/Docker/Xyzzy/pyx.sqlite:/opt/pyx.sqlite:ro
+      - /share/CACHEDEV1_DATA/docker/pyx/pyx.properties:/opt/pyx.properties:ro
+      - /share/CACHEDEV1_DATA/docker/pyx/log4j.properties:/opt/log4j.properties:ro
+      - /share/CACHEDEV1_DATA/docker/pyx/hibernate.cfg.xml:/opt/hibernate.cfg.xml:ro
+      - /share/CACHEDEV1_DATA/docker/pyx/pyx.sqlite:/opt/pyx.sqlite:ro
     ports:
-      - 8080:8080
+      - 9321:8080
     networks:
-      - pyx-net
+      - porty_default
     environment:
       - TOMCAT_USER=tomcat_user
       - TOMCAT_PASSWORD=tomcat_password
@@ -20,26 +20,7 @@ services:
       - DB_USER=pyx
       - DB_PASSWORD=CorrectHorseBatteryStaple
 
-  postgres:
-    image: "postgres:alpine"
-    volumes:
-      - /mnt/f/Docker/Xyzzy/data/pgdata:/var/lib/postgresql/data
-      - /mnt/f/Docker/Xyzzy/init-db.d:/docker-entrypoint-initdb.d
-    networks:
-      - pyx-net
-    environment:
-      - POSTGRES_DB=pyx
-      - POSTGRES_USER=pyx
-      - POSTGRES_PASSWORD=CorrectHorseBatteryStaple
-
-  ngrok:
-    image: wernight/ngrok:latest
-    networks:
-      - pyx-net
-    ports:
-      - "4040:4040"
-    environment:
-      - NGROK_PORT=pyx:8080
-
 networks:
-  pyx-net:
+  porty_default:
+    name: porty_default
+    external: true
