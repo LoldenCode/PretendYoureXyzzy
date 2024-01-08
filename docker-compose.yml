@@ -19,6 +19,10 @@ services:
       - DB_NAME=pyx
       - DB_USER=pyx
       - DB_PASSWORD=CorrectHorseBatteryStaple
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.pretendyoure.rule=Host(`pretendyoure.lolden.xyz`)
+      - traefik.http.routers.pretendyoure.entryPoints=https
 
 networks:
   porty_default:
