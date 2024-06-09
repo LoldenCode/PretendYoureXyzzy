@@ -1,6 +1,7 @@
 services:
   server:
     build: .
+    pull_policy: build
     restart: unless-stopped
     command:
       - "--pyx.server.port=8080"
